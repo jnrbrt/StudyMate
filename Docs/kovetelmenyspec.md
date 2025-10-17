@@ -4,3 +4,7 @@
 
 
 
+## 2. Jelenlegi helyzet leírása
+
+
+
