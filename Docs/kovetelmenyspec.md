@@ -12,3 +12,7 @@
 
 
 
+## 4. Jelenlegi üzleti folyamatok modellje
+
+
+
