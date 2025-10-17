@@ -20,3 +20,7 @@
 
 
 
+## 6. Funkcionális követelmények
+
+
+
