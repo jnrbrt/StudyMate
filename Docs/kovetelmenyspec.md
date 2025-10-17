@@ -32,3 +32,6 @@
 
 
 
+## 9. Minőségi követelmények
+
+
