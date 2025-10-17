@@ -40,3 +40,7 @@
 
 
 
+## 11. Minőségi követelmények
+
+
+
