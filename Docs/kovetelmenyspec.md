@@ -24,3 +24,7 @@
 
 
 
+## 7. Nem funkcionális követelmények
+
+
+
