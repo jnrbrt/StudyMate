@@ -77,7 +77,16 @@ A **StudyMate AI** működési folyamata:
 
 ## 6. Funkcionális követelmények
 
-
+- Jegyzetek feltöltése és szerkesztése (szöveg, PDF)  
+- Automatikus szövegfeldolgozás és mentés  
+- AI-alapú összefoglalók készítése (OpenAI API integráció)  
+- AI által generált kvízkérdések létrehozása  
+- Kvízek kitöltése és automatikus pontozás  
+- Felhasználói statisztika megjelenítése (eredmények, előrehaladás)  
+- AI Study Coach tanulási javaslatokkal és gyakorló feladatokkal  
+- Felhasználói hitelesítés (JWT token)  
+- Profiloldal: beállítások, jegyzetek, kvízek, tanulási javaslatok  
+- Adatbiztonsági előírások betartása (titkosítás, jogosultságkezelés)
 
 ## 7. Nem funkcionális követelmények
 
