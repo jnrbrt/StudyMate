@@ -87,7 +87,14 @@ A felhasználó végül teljes képet kap a tanulás előrehaladásáról, a hi�
 
 ## 7. Nem funkcionális követelmények
 
-
+- **Felhasználói élmény:** intuitív, átlátható, könnyen navigálható.  
+- **Reszponzív design:** mobil, tablet, desktop kompatibilitás.  
+- **Teljesítmény:** válaszidő <2 másodperc, AI-hívások optimalizált cache-eléssel.  
+- **Megbízhatóság:** 99,5%-os rendelkezésre állás, hibatűrő működés, adatmentés.  
+- **Biztonság:** HTTPS, jelszó-hash, jogosultságkezelés, API hozzáférések korlátozása.  
+- **Skálázhatóság:** horizontális bővíthetőség több ezer felhasználóhoz.  
+- **Bővíthetőség:** moduláris felépítés, új AI-funkciók, kvíztípusok és közösségi funkciók integrálhatók.  
+- **Hibakezelés és naplózás:** minden kritikus esemény naplózása, riasztás lehetősége.
 
 ## 8. Adatkezelési követelmények
 
