@@ -2,7 +2,6 @@
 
 ## 1. A projekt célja és indoklása
 
-## 1. A projekt célja és indoklása
 A **StudyMate AI** célja, hogy egy olyan webes tanulástámogató platformot biztosítson, amely az egyéni tanulást mesterséges intelligenciával segíti.  
 A rendszer az oktatásban tapasztalható egyik legnagyobb problémát célozza meg: a **személyre szabott visszajelzés** és az **aktív tanulás hiányát**.
 
