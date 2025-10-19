@@ -98,7 +98,18 @@ A felhasználó végül teljes képet kap a tanulás előrehaladásáról, a hi�
 
 ## 8. Adatkezelési követelmények
 
+### Kezelt entitások
 
+- **User:** azonosító, név, e-mail, jelszó hash, regisztráció dátuma.  
+- **Note:** cím, tartalom, AI-összefoglaló, generált kvízkérdések, metaadatok.  
+- **QuizResult:** felhasználóhoz és jegyzethez kapcsolódó pontszámok, válaszok, kitöltés dátuma.  
+- **AiAdvice:** AI által generált tanulási javaslatok, gyakorló kérdések, generálás dátuma.
+
+### Adatvédelmi szabályok
+
+- Titkosított adatátvitel (HTTPS).  
+- Felhasználónként elkülönített adatok, más felhasználó nem fér hozzá.  
+- GDPR-kompatibilis adatkezelés, átlátható jogosultságok és adat-hozzáférés.
 
 ## 9. Használati esetek
 
