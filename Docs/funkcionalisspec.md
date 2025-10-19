@@ -40,7 +40,14 @@ A StudyMate AI célja egy integrált tanulástámogató platform létrehozása, 
 
 ## 3. Vágyálomrendszer leírása
 
+A vágyálomrendszer ideális állapota, hogy a felhasználó minden tanulási tevékenységet egyetlen platformon végezzen, az AI pedig aktívan részt vegyen a tanulási folyamatban:
 
+- **Összefoglalás és kvíz:** a felhasználó azonnali, személyre szabott anyagot kap.  
+- **AI adaptív viselkedés:** a rendszer alkalmazkodik a felhasználó tanulási mintázataihoz.  
+- **Folyamatos fejlődés:** az AI a felhasználói interakciók alapján finomhangolja a javaslatokat.  
+- **Teljes tanulási nyomon követés:** jegyzetek, kvízek és tanulási javaslatok egy helyen.
+
+---
 
 ## 4. Jelenlegi üzleti folyamatok modellje
 
