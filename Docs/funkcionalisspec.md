@@ -18,7 +18,25 @@ A rendszer moduláris felépítése biztosítja a bővíthetőséget, a karbanta
 
 ## 2. Projekt leírása
 
+A StudyMate AI célja egy integrált tanulástámogató platform létrehozása, amely minden lépésben támogatja a felhasználót: jegyzetfeltöltéstől az összefoglaláson át a kvízkitöltésig és az AI-alapú tanulási javaslatokig.  
 
+### Információfeldolgozási lánc
+
+1. **Jegyzetfeltöltés:** szöveges vagy PDF formátumban.  
+2. **Automatikus összefoglaló:** AI elemzi a tananyagot és rövid, tanulásra optimalizált összefoglalót készít.  
+3. **Kvízgenerálás:** AI kérdések készítése az anyag alapján, interaktív kitöltéshez.  
+4. **Eredmény-elemzés:** a rendszer rögzíti a felhasználó teljesítményét, pontszámokat és statisztikát készít.  
+5. **AI Study Coach:** személyre szabott tanulási javaslatok és gyakorló kérdések a gyenge pontok erősítésére.
+
+### Fő modulok és funkcióik
+
+- **Jegyzetfeltöltő modul:** fájl- és szövegkezelés, CRUD műveletek, PDF-feldolgozás, hibakezelés, metaadatok mentése.  
+- **AI-feldolgozó modul:** OpenAI integráció, promptok kezelése, aszinkron hívások, cache-elés, AI-válaszok feldolgozása és tárolása.  
+- **Kvízrendszer:** kérdések generálása, kitöltés, pontozás, eredmények mentése, ismétlésre optimalizált folyamatok.  
+- **AI Study Coach:** teljesítményelemzés, gyenge pontok azonosítása, tanulási javaslatok és gyakorló feladatok automatikus készítése.  
+- **Profil és statisztika modul:** eredmények megjelenítése, grafikonok, előrehaladás követése, összesített statisztikák.
+
+---
 
 ## 3. Vágyálomrendszer leírása
 
