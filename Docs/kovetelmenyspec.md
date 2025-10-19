@@ -44,7 +44,13 @@ A cél egy **proaktív tanulási segéd**, amely felismeri a felhasználó gyeng
 
 ## 4. Jelenlegi üzleti folyamatok modellje
 
+- A tanulók több, különálló eszközt használnak (pl. Word, Notion, Google Docs, Quizlet)  
+- A tanulási anyagok tárolása decentralizált, a feldolgozás manuális  
+- A tudásellenőrzés nem egységes, gyakran önértékelésre épül  
+- A tanulás nem mérhető, az előrehaladásról nincs adatszintű visszajelzés  
+- A rendszeres gyakorlás motivációja alacsony, nincs személyre szabott útmutatás  
 
+Ezek a problémák indokolják egy **központosított, AI-alapú tanulási rendszer** bevezetését.
 
 ## 5. Igényelt üzleti folyamatok modellje
 
