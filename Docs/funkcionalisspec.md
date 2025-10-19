@@ -51,7 +51,15 @@ A vágyálomrendszer ideális állapota, hogy a felhasználó minden tanulási t
 
 ## 4. Jelenlegi üzleti folyamatok modellje
 
+A hallgatók jelenleg különálló eszközöket használnak, ami:
 
+- széttagolt, manuális feldolgozást eredményez,  
+- nehezíti a tudás mérését,  
+- csökkenti a motivációt a rendszeres gyakorlásra.
+
+A StudyMate AI automatizált, adatvezérelt megoldást kínál: feldolgozza az anyagokat, mérhetővé teszi a tudást, és egyéni tanulási útvonalat ajánl.
+
+---
 
 ## 5. Igényelt üzleti folyamatok modellje
 
