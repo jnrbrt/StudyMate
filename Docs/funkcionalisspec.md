@@ -75,7 +75,15 @@ A felhasználó végül teljes képet kap a tanulás előrehaladásáról, a hi�
 
 ## 6. Funkcionális követelmények
 
-
+- **Jegyzetfeltöltés:** szöveges vagy PDF formátum, ellenőrzés és feldolgozás, hibaüzenet hibás fájl esetén.  
+- **Jegyzetek kezelése:** szerkesztés, törlés, metaadatok kezelése, verziókövetés.  
+- **AI-összefoglalók készítése:** három bekezdéses tömör összefoglaló, mentés az adatbázisba.  
+- **Kvízkérdések generálása:** 5–10 kérdés, több válaszlehetőség, interaktív kitöltés.  
+- **Kvíz kitöltése és értékelése:** pontozás, válaszok mentése, statisztikák, gyenge pontok jelzése.  
+- **AI Study Coach:** teljesítményelemzés, ismétlési javaslatok, új gyakorló kérdések.  
+- **Profil és statisztika:** grafikonok, összesített pontszámok, beállítások módosítása.  
+- **Hitelesítés és jogosultságkezelés:** JWT token, adatok kizárólag a megfelelő felhasználó számára.  
+- **Hibakezelés:** minden funkcióhoz hibaüzenet és naplózás.
 
 ## 7. Nem funkcionális követelmények
 
