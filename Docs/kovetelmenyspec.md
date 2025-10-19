@@ -29,7 +29,18 @@ A jelenlegi környezet nem támogatja az **önálló, adaptív tanulást** – e
 
 ## 3. Vágyálomrendszer leírása
 
+A **StudyMate AI** egy **integrált, intelligens tanulási platform**, amely a tanulás minden lépését egy helyen biztosítja.
 
+### A felhasználó
+- Feltöltheti jegyzeteit szövegesen vagy PDF-ben  
+- A rendszer AI segítségével összefoglalót készít a tartalomból  
+- Automatikusan generál kvízkérdéseket  
+- Lehetőséget ad ezek megválaszolására és az eredmények mentésére  
+- A személyes tanulási teljesítmény alapján tanácsokat és gyakorló feladatokat kap  
+
+A cél egy **proaktív tanulási segéd**, amely felismeri a felhasználó gyenge pontjait, és ezekre építve javaslatokat ad az ismétléshez és fejlődéshez.
+
+---
 
 ## 4. Jelenlegi üzleti folyamatok modellje
 
