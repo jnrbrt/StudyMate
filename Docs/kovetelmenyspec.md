@@ -54,6 +54,25 @@ Ezek a problémák indokolják egy **központosított, AI-alapú tanulási rends
 
 ## 5. Igényelt üzleti folyamatok modellje
 
+A **StudyMate AI** működési folyamata:
+
+1. **Jegyzetfeltöltés és tárolás**  
+   A felhasználó feltölti a tananyagot, amit a rendszer automatikusan feldolgoz és tárol.  
+
+2. **Összefoglaló generálása**  
+   Az AI lényegkiemelő összefoglalót készít a dokumentumból, segítve az ismétlést.  
+
+3. **Kvízgenerálás**  
+   A rendszer 5 kérdésből álló kvízt készít a jegyzet tartalmából.  
+
+4. **Kvízkitöltés és értékelés**  
+   A felhasználó kitölti a tesztet, a rendszer automatikusan pontoz és tárolja az eredményt.  
+
+5. **AI Study Coach**  
+   Az AI elemzi a korábbi eredményeket, javaslatokat tesz a fejlődésre, és új gyakorló kérdéseket is készít.  
+
+6. **Profil és statisztika**  
+   A felhasználó követheti a fejlődését, megtekintheti a korábbi kvízeket és az AI tanácsait.
 
 
 ## 6. Funkcionális követelmények
