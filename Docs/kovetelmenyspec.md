@@ -14,7 +14,18 @@ A projekt célja egy **felhasználóbarát, mesterséges intelligenciával támo
 
 ## 2. Jelenlegi helyzet leírása
 
+A tanulók jelenleg több, egymástól független platformon kezelik a tanulási anyagaikat. Ezek a rendszerek nem kommunikálnak egymással, a tanulás folyamata **szétszabdalt, manuális és passzív**.
 
+### Jellemző problémák
+- A jegyzetek feldolgozása időigényes és nehezen kereshető  
+- Nincs automatizált tudásmérés  
+- A visszajelzés hiányos vagy teljesen hiányzik  
+- A fejlődés nem követhető, nincsenek mérhető eredmények  
+- A tanuló nem kap iránymutatást, hogy mely témákra érdemes koncentrálnia  
+
+A jelenlegi környezet nem támogatja az **önálló, adaptív tanulást** – ezt a szerepet a StudyMate AI veszi át.
+
+---
 
 ## 3. Vágyálomrendszer leírása
 
