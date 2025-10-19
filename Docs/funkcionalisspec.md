@@ -63,7 +63,15 @@ A StudyMate AI automatizált, adatvezérelt megoldást kínál: feldolgozza az a
 
 ## 5. Igényelt üzleti folyamatok modellje
 
+A StudyMate AI működése:
 
+1. **Jegyzetfeltöltés és tárolás** – PDF vagy szöveg feldolgozása, metaadatok mentése.  
+2. **AI összefoglaló készítése** – tanulásra optimalizált rövid összefoglaló.  
+3. **Kvízkérdések előállítása** – 5–10 kérdés generálása, lehetőség különböző nehézségi szintekre.  
+4. **Kvízkitöltés és értékelés** – automatikus pontozás, statisztikai adatok rögzítése.  
+5. **AI Study Coach javaslatok** – gyenge pontok azonosítása, új gyakorló feladatok.
+
+A felhasználó végül teljes képet kap a tanulás előrehaladásáról, a hiányosságokról és a további teendőkről.
 
 ## 6. Funkcionális követelmények
 
