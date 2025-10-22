@@ -132,3 +132,20 @@ flowchart LR
 ```
 
 ---
+
+## 6. Funkcionális követelmények
+
+A rendszer fő funkciói a következők:
+
+- Jegyzetfeltöltés PDF-ben vagy szövegként
+- Összefoglaló készítése AI segítségével
+- Kvízkérdések generálása és tárolása
+- Kvízkitöltés és automatikus pontozás
+- Eredmények mentése és vizualizálása
+- AI Study Coach elemzések és tanácsok
+- Profil és statisztika megjelenítése
+- Biztonságos bejelentkezés és adatkezelés
+
+A funkciók modulárisan épülnek fel, így az egyes komponensek külön fejleszthetők és tesztelhetők.
+
+---
