@@ -173,3 +173,20 @@ A nem funkcionális követelmények biztosítják a rendszer teljesítményét, 
 - GDPR-kompatibilis adatkezelés.
 
 ---
+
+## 8. Adatkezelési követelmények
+
+Az adatmodell négy fő entitásra épül: **User**, **Note**, **QuizResult**, **AiAdvice**.
+
+```mermaid
+erDiagram
+    USER ||--o{ NOTE : "tulajdonolja"
+    USER ||--o{ QUIZRESULT : "kitölti"
+    USER ||--o{ AIADVICE : "kapja"
+    NOTE ||--o{ QUIZRESULT : "hozzátartozik"
+```
+
+Az adatok titkosított formában kerülnek tárolásra, és kizárólag a tulajdonos felhasználó fér hozzá.  
+Az adatbázis Mongoose ORM-mel kezelve biztosítja a sémák konzisztenciáját és a relációk átláthatóságát.
+
+---
