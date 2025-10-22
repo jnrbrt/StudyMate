@@ -91,3 +91,22 @@ sequenceDiagram
 ```
 
 ---
+
+## 4. Jelenlegi üzleti folyamatok modellje
+
+A hagyományos tanulási rendszerekben a diákok manuálisan dolgozzák fel az anyagot, gyakran különböző platformokat használva.  
+Ez **időigényes, széttagolt** és **nehezen mérhető** folyamatot eredményez.
+
+A StudyMate AI ezeket a problémákat azáltal küszöböli ki, hogy **automatizálja az információfeldolgozást**, és **egységes tanulási környezetet** biztosít.
+
+```mermaid
+flowchart TD
+    A[Hagyományos tanulás] --> B[Kézi jegyzetelés]
+    B --> C[Különálló eszközök]
+    C --> D[Nehezen kereshető tartalom]
+    D --> E[Nincs visszajelzés]
+    E --> F[Motiváció hiánya]
+```
+
+---
+
