@@ -110,3 +110,25 @@ flowchart TD
 
 ---
 
+## 5. Igényelt üzleti folyamatok modellje
+
+A StudyMate AI célja az automatizált és adatvezérelt tanulási folyamat bevezetése.  
+A felhasználó útja a rendszerben az alábbi lépésekből áll:
+
+1. Jegyzet feltöltése
+2. AI összefoglaló generálása
+3. Kvízkérdések készítése
+4. Kvíz kitöltése és pontozás
+5. AI Study Coach javaslatok megtekintése
+
+```mermaid
+flowchart LR
+    Start([Tanulási folyamat kezdete]) --> Upload[Jegyzet feltöltése]
+    Upload --> Summary[AI összefoglaló készítése]
+    Summary --> QuizGen[Kvízgenerálás]
+    QuizGen --> QuizRun[Kvíz kitöltése]
+    QuizRun --> Coach[AI Study Coach javaslatok]
+    Coach --> End([Fejlődés értékelése])
+```
+
+---
