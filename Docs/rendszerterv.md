@@ -149,3 +149,27 @@ A rendszer fő funkciói a következők:
 A funkciók modulárisan épülnek fel, így az egyes komponensek külön fejleszthetők és tesztelhetők.
 
 ---
+
+## 7. Nem funkcionális követelmények
+
+A nem funkcionális követelmények biztosítják a rendszer teljesítményét, megbízhatóságát és használhatóságát.
+
+### 7.1 Teljesítmény
+
+- A fő műveletek válaszideje maximum 2 másodperc.
+- Az AI-hívások cache-eléssel optimalizáltak.
+- A rendszer horizontálisan skálázható.
+
+### 7.2 Megbízhatóság és rendelkezésre állás
+
+- 99,5%-os rendelkezésre állás.
+- Redundáns adatmentés és hibatűrés.
+- Folyamatos logolás és hibadetektálás.
+
+### 7.3 Biztonság és adatvédelem
+
+- HTTPS protokoll és JWT token alapú hitelesítés.
+- Adattitkosítás és jogosultságkezelés minden rétegben.
+- GDPR-kompatibilis adatkezelés.
+
+---
