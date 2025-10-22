@@ -63,3 +63,31 @@ flowchart LR
 ```
 
 ---
+
+## 3. Vágyálomrendszer leírása
+
+Az ideális StudyMate AI rendszer egy önálló, adaptív tanulási ökoszisztéma, amely képes:
+
+- valós idejű elemzéseket készíteni a tanulási szokásokról,
+- vizualizált statisztikákat és személyre szabott tanulási útvonalakat nyújtani,
+- interaktív visszajelzéseket biztosítani minden egyes tanulási ciklus után.
+
+A vágyálomrendszer képes előre jelezni, mely területek igényelnek több gyakorlást, és akár új tesztanyagokat generálni ezekre a témákra.
+
+### 3.1 Célrendszer viselkedése
+
+A célrendszer viselkedése reaktív és adaptív: az AI minden felhasználói interakciót elemez, és ennek alapján finomhangolja a tanulási javaslatokat.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant System
+    participant AI
+
+    User->>System: Feltölt jegyzetet
+    System->>AI: Küldi a szöveget feldolgozásra
+    AI-->>System: Összefoglaló és kérdések
+    System-->>User: Megjeleníti az eredményeket és a kvízt
+```
+
+---
