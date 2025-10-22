@@ -37,3 +37,29 @@ A StudyMate AI célja, hogy egy **oktatási segédrendszerként** szolgáljon, a
 A rendszer **felhőalapú környezetben** működik, támogatva a többfelhasználós hozzáférést és az adatbiztonságot (HTTPS, JWT, titkosított adattárolás).
 
 ---
+
+## 2. Projektleírás és célkitűzések
+
+A projekt célja egy olyan intelligens tanulási ökoszisztéma megteremtése, amely automatizálja a tanulási folyamatokat, és adatvezérelt módon segíti a felhasználók fejlődését.
+
+A fő funkciók közé tartozik:
+
+- **Jegyzetfeltöltés:** szöveges vagy PDF formátumban.
+- **Automatikus összefoglalás:** AI által készített, 3 bekezdéses kivonat.
+- **Kvízgenerálás:** a jegyzet alapján 5–10 kérdés.
+- **Kvízkitöltés:** pontozás, eredmény-elemzés.
+- **AI Study Coach:** tanulási javaslatok a gyenge pontok alapján.
+
+A projekt első verziója MVP szinten az alapfunkciókra koncentrál, de a rendszer nyitott a további bővítésekre, mint például adaptív tanulási útvonalak, gamifikáció vagy közösségi tanulás.
+
+```mermaid
+flowchart LR
+    U[Felhasználó] --> N[Jegyzet feltöltés]
+    N --> S[AI Összefoglalás]
+    S --> Q[Kvíz generálás]
+    Q --> R[Kvíz kitöltés és értékelés]
+    R --> C[AI Study Coach elemzés]
+    C --> F[Fejlődés követés és javaslatok]
+```
+
+---
