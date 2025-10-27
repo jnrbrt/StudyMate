@@ -123,4 +123,11 @@ A **StudyMate AI** működési folyamata:
 
 ## 9. Minőségi követelmények
 
+- **Felhasználói élmény:** intuitív és tanulásra ösztönző kezelőfelület  
+- **Teljesítmény:** az AI funkciók válaszideje optimalizált cache-eléssel  
+- **Megbízhatóság:** folyamatos adatmentés és visszaállítási lehetőség  
+- **Bővíthetőség:** a rendszer moduláris, új AI-funkciók egyszerűen integrálhatók  
+- **Skálázhatóság:** a backend horizontálisan bővíthető több felhasználó esetén  
+- **Biztonság:** jelszó-hash-elés, tokenes hitelesítés, jogosultságellenőrzés  
+- **Adatvédelem:** GDPR-kompatibilis adatkezelés és átlátható adat-hozzáférés
 
