@@ -154,7 +154,13 @@ A felhasználó végül teljes képet kap a tanulás előrehaladásáról, a hi�
 
 ## 11. Minőségi követelmények
 
-
+- **Felhasználói élmény:** modern, intuitív, könnyen navigálható felület.  
+- **Teljesítmény:** AI-funkciók válaszideje optimalizált cache-eléssel, gyors betöltés.  
+- **Megbízhatóság:** folyamatos adatmentés, hibatűrő működés, redundancia.  
+- **Skálázhatóság:** horizontális bővíthetőség a felhasználószám növekedésével.  
+- **Bővíthetőség:** moduláris architektúra, új AI-funkciók és kvíztípusok egyszerű integrálása.  
+- **Biztonság:** titkosítás, tokenes hitelesítés, jogosultság-ellenőrzés.  
+- **Adatvédelem:** GDPR-kompatibilitás, auditált hozzáférés, felhasználói adatok elkülönítése.
 
 ## 12. Tesztelési és karbantartási követelmények
 
