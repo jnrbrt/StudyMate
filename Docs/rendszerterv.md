@@ -190,3 +190,22 @@ Az adatok titkosított formában kerülnek tárolásra, és kizárólag a tulajd
 Az adatbázis Mongoose ORM-mel kezelve biztosítja a sémák konzisztenciáját és a relációk átláthatóságát.
 
 ---
+
+## 9. Használati esetek
+
+### 9.1 Jegyzetfeltöltés
+A felhasználó új jegyzetet tölt fel. A backend feldolgozza és menti a fájlt.  
+A rendszer ellenőrzi a formátumot, majd az AI automatikusan elindítható az összefoglaló készítésére.
+
+### 9.2 Összefoglaló generálása
+A backend elküldi az anyagot az AI-nak, majd az eredményt visszatölti az adatbázisba.  
+A felhasználó megtekintheti, szerkesztheti és mentheti az összefoglalót.
+
+### 9.3 Kvízkitöltés
+A generált kérdésekből a felhasználó kvízt indít.  
+A backend pontozza, menti az eredményt, és az AI Study Coach javaslatokat készít az elemzéshez.
+
+### 9.4 Profil és statisztika
+A felhasználó grafikonokon keresztül láthatja fejlődését és korábbi eredményeit.
+
+---
