@@ -228,3 +228,15 @@ graph TD
 ```
 
 ---
+
+## 11. Minőségi követelmények
+
+A minőségi szempontok célja a hosszú távú fenntarthatóság és fejleszthetőség biztosítása.
+
+- Felhasználói élmény: modern, reszponzív UI.
+- Teljesítmény: gyors API válaszidők és cache-elés.
+- Megbízhatóság: redundáns adatmentés és visszaállítás.
+- Biztonság: titkosított kommunikáció, erős autentikáció.
+- Skálázhatóság: több ezer felhasználó támogatása.
+
+---
