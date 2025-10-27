@@ -113,7 +113,16 @@ A felhasználó végül teljes képet kap a tanulás előrehaladásáról, a hi�
 
 ## 9. Használati esetek
 
+```mermaid
+flowchart LR
+    U[Felhasználó] --> N[Jegyzetfeltöltés]
+    U --> S[Összefoglaló generálása]
+    U --> Q[Kvízkitöltés]
+    U --> C[AI Study Coach javaslatok]
+    U --> P[Profil és statisztika]
+```
 
+---
 
 ## 10. Rendszerintegrációs követelmények
 
