@@ -164,4 +164,10 @@ A felhasználó végül teljes képet kap a tanulás előrehaladásáról, a hi�
 
 ## 12. Tesztelési és karbantartási követelmények
 
-
+- **Funkcionális tesztek:** minden modul ellenőrzése (jegyzetfeltöltés, összefoglaló, kvíz, AI-javaslat).  
+- **Integrációs tesztek:** backend–frontend–AI API összekapcsolás ellenőrzése, adatáramlás validálása.  
+- **Teljesítménytesztek:** válaszidő, adatbázis-terhelés, AI-hívások hatékonyságának mérése.  
+- **Felhasználói tesztek:** UX értékelés, hibák és nehézségek feltárása, iteratív javítások.  
+- **Rendszerkarbantartás:** rendszeres adatmentés, API-verziófrissítés, biztonsági audit.  
+- **Verziókezelés:** Git alapú, dokumentált release jegyzékekkel, kódminőség ellenőrzéssel.  
+- **Hibakezelés és monitorozás:** automatikus logolás, riasztás kritikus hibák esetén, dashboard az állapotfigyeléshez.
