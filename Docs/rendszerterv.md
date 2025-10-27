@@ -240,3 +240,26 @@ A minőségi szempontok célja a hosszú távú fenntarthatóság és fejleszthe
 - Skálázhatóság: több ezer felhasználó támogatása.
 
 ---
+
+## 12. Tesztelési és karbantartási követelmények
+
+### 12.1 Tesztelési terv
+
+- **Egységtesztek:** minden modulra külön (Jest vagy Mocha).
+- **Integrációs tesztek:** frontend–backend–AI API kapcsolat ellenőrzése.
+- **Teljesítménytesztek:** válaszidő és adatbázis-terhelés mérése.
+- **Felhasználói tesztek:** UX validálás, hibajavítás.
+
+### 12.2 Karbantartás
+
+- Rendszeres adatmentések és audit naplók.
+- Verziókövetés Git alapon, CI/CD integrációval.
+- Hibalogok és riasztások automatizált feldolgozása.
+
+```mermaid
+flowchart TD
+    A[Fejlesztés] --> B[Tesztelés]
+    B --> C[Deploy - CI/CD]
+    C --> D[Karbantartás és monitorozás]
+    D --> A
+```
