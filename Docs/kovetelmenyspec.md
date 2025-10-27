@@ -90,7 +90,15 @@ A **StudyMate AI** működési folyamata:
 
 ## 7. Nem funkcionális követelmények
 
+- Reszponzív, felhasználóbarát kezelőfelület (React + TailwindCSS)  
+- Minden művelet gyors végrehajtása (<2 másodperc válaszidő)  
+- Megbízható backend szolgáltatás (Node.js + Express)  
+- Stabil adatkezelés (MongoDB, Mongoose ORM)  
+- Kódminőségi és biztonsági szabványok betartása  
+- Többeszközös támogatás (mobil, tablet, desktop)  
+- Hibakezelés minden fő funkciónál (érvénytelen fájl, API-hiba stb.)
 
+---
 
 ## 8. Használati esetek
 
