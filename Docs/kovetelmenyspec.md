@@ -102,7 +102,24 @@ A **StudyMate AI** működési folyamata:
 
 ## 8. Használati esetek
 
+### Jegyzetfeltöltés
+- Felhasználó kiválasztja a fájlt vagy beírja a szöveget  
+- Rendszer feldolgozza és menti a jegyzetet  
 
+### Összefoglaló generálása
+- Felhasználó gombnyomásra kéri az AI-tól az összefoglalót  
+- A rendszer az eredményt elmenti és megjeleníti  
+
+### Kvízkérdések létrehozása és kitöltése
+- AI kérdéseket generál → felhasználó válaszol → rendszer pontoz  
+
+### AI Study Coach javaslatainak megtekintése
+- AI kiértékeli a korábbi kvízeket és személyre szabott javaslatokat ad  
+
+### Profil és statisztika
+- Felhasználó megtekinti fejlődési adatait, pontszámait és ajánlásait
+
+---
 
 ## 9. Minőségi követelmények
 
