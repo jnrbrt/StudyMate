@@ -209,3 +209,22 @@ A backend pontozza, menti az eredményt, és az AI Study Coach javaslatokat kés
 A felhasználó grafikonokon keresztül láthatja fejlődését és korábbi eredményeit.
 
 ---
+
+## 10. Rendszerintegrációs követelmények
+
+- **Backend:** Node.js + Express REST API
+- **Frontend:** React + TailwindCSS
+- **Adatbázis:** MongoDB (Mongoose ORM)
+- **AI integráció:** OpenAI API
+- **PDF feldolgozás:** pdf-parse / pdfjs-dist
+- **Grafikonok:** Chart.js vagy Recharts
+- **Hitelesítés:** JWT alapú rendszer
+
+```mermaid
+graph TD
+    A[Frontend] --> B[Backend API]
+    B --> C[(MongoDB)]
+    B --> D[(OpenAI API)]
+```
+
+---
