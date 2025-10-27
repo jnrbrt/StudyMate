@@ -113,20 +113,44 @@ A felhasználó végül teljes képet kap a tanulás előrehaladásáról, a hi�
 
 ## 9. Használati esetek
 
-```mermaid
-flowchart LR
-    U[Felhasználó] --> N[Jegyzetfeltöltés]
-    U --> S[Összefoglaló generálása]
-    U --> Q[Kvízkitöltés]
-    U --> C[AI Study Coach javaslatok]
-    U --> P[Profil és statisztika]
-```
+### 9.1 Jegyzetfeltöltés
 
----
+- Felhasználó új jegyzetet ad hozzá.  
+- Rendszer ellenőrzi a formátumot, menti a jegyzetet, és értesíti a felhasználót a sikeres feltöltésről.  
+- Hibás fájl esetén hibaüzenet jelenik meg, és a jegyzet nem kerül mentésre.
+
+### 9.2 Összefoglaló generálása
+
+- Felhasználó gombnyomással kéri az AI-tól az összefoglalót.  
+- AI feldolgozza a tartalmat, három bekezdéses összefoglalót készít, elmenti az adatbázisba.  
+- Felhasználó megtekintheti, szerkesztheti és mentheti az összefoglalót.
+
+### 9.3 Kvízkitöltés
+
+- AI generálja a kérdéseket és válaszlehetőségeket.  
+- Felhasználó kitölti a kvízt, a rendszer pontoz, statisztikát készít, és az AI Study Coach számára rögzíti az eredményeket.  
+- Felhasználó láthatja azonnali visszajelzésként az eredményt, részletes elemzéssel a gyenge pontokról.
+
+### 9.4 AI Study Coach
+
+- AI kiértékeli az összes korábbi kvízt, azonosítja a gyenge területeket, és javaslatot ad további gyakorlásra.  
+- Lehetőséget ad új gyakorló kérdések azonnali megoldására.
+
+### 9.5 Profil és statisztika
+
+- Felhasználó áttekintheti korábbi jegyzeteit, eredményeit, AI-javaslatait.  
+- Grafikonok és statisztikák szemléltetik a fejlődést, a kitöltött kvízek számát, az átlagpontszámot és a gyenge témaköröket.
 
 ## 10. Rendszerintegrációs követelmények
 
-
+- **Backend:** Node.js + Express REST API, moduláris felépítés.  
+- **Frontend:** React + TailwindCSS, dinamikus komponensek, grafikonok, kvíz-interakciók.  
+- **Adatbázis:** MongoDB (Mongoose ORM), strukturált dokumentumok, indexelt keresés.  
+- **AI integráció:** OpenAI API (GPT-4-turbo vagy újabb modell), prompt-kezelés, aszinkron feldolgozás.  
+- **PDF feldolgozás:** pdf-parse vagy pdfjs-dist, szövegkinyerés és metaadatok mentése.  
+- **Grafikonok:** Chart.js vagy Recharts, vizualizált előrehaladás.  
+- **Hitelesítés:** JWT token alapú.  
+- **Fájlfeltöltés:** biztonságos, validált, metaadatokkal ellátott.
 
 ## 11. Minőségi követelmények
 
