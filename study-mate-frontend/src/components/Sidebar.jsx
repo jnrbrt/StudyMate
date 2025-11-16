@@ -25,7 +25,7 @@ const Sidebar = ({ isOpen, toggle }) => {
             <nav
                 className="flex-grow p-4 space-y-2 overflow-hidden"
             >
-                <Link to="/" className="flex items-center p-2 rounded-md text-gray-700 hover:bg-gray-100">
+                <Link to="/home" className="flex items-center p-2 rounded-md text-gray-700 hover:bg-gray-100">
                     <FiHome className="mr-3 w-6 h-6 flex-shrink-0" />
                     <span className={`whitespace-nowrap transition-opacity ${!isOpen && 'opacity-0'}`}>Főoldal (Chat)</span>
                 </Link>
