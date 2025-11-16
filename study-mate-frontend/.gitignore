@@ -22,3 +22,23 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Env fájlok
+.env
+.env.*      # pl. .env.local
+
+# Build / cache / generated
+build/
+coverage/
+tmp/
+*.cache
+
+# Node / JS
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# OS fájlok
+Thumbs.db
+
+# Telepített node_modules már benne van, oké
