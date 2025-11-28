@@ -6,8 +6,8 @@ import './index.css';
 import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 import MainPage from './pages/MainPage';
+import NotesPage from './pages/NotesPage';
 import PrivateRoute from './components/PrivateRoute';
-
 import NoteDetailPage from './pages/NoteDetailPage';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -16,6 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/register" element={<RegistrationPage />} />
+
                 <Route
                     path="/home"
                     element={
@@ -24,6 +25,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                         </PrivateRoute>
                     }
                 />
+
+                <Route
+                    path="/notes"
+                    element={
+                        <PrivateRoute>
+                            <NotesPage />
+                        </PrivateRoute>
+                    }
+                />
+
                 <Route
                     path="/notes/:id"
                     element={
