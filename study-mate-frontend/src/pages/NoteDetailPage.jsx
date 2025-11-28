@@ -1,96 +1,115 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
-import { FiFileText, FiHelpCircle } from 'react-icons/fi';
-
-//fake data
-const studyData = {
-    title: 'II. világháború',
-    summary: 'A II. világháború (1939-1945) az emberiség történetének legpusztítóbb globális konfliktusa volt. A Tengelyhatalmak (élükön Németországgal, Olaszországgal és Japánnal) és a Szövetségesek (élükön Nagy-Britanniával, Franciaországgal, a Szovjetunióval és az Egyesült Államokkal) között zajlott. A háború Európában Lengyelország 1939-es német inváziójával kezdődött és Németország 1945-ös kapitulációjával ért véget. A konfliktus kulcsfontosságú eseményei közé tartozott a holokauszt, a Pearl Harbor elleni támadás, a sztálingrádi csata, a normandiai partraszállás (D-Day) és a háborút végleg lezáró atombombázások Hirosimában és Nagaszakiban.',
-    quiz: [
-        {
-            id: 1,
-            q: 'Melyik esemény tekinthető a II. világháború európai kezdetének?',
-            a: [
-                'Lengyelország német inváziója (1939)',
-                'A Pearl Harbor elleni támadás (1941)',
-                'A normandiai partraszállás (1944)',
-                'Hitler hatalomra jutása (1933)'
-            ]
-        },
-        {
-            id: 2,
-            q: 'Melyik ország NEM tartozott a Tengelyhatalmak főbb tagjai közé?',
-            a: [
-                'Szovjetunió',
-                'Németország',
-                'Olaszország',
-                'Japán'
-            ]
-        },
-        {
-            id: 3,
-            q: 'Mi volt a "D-Day" fedőneve?',
-            a: [
-                'A szövetségesek normandiai partraszállása',
-                'A hirosimai atombomba ledobása',
-                'Németország kapitulációja',
-                'A sztálingrádi csata vége'
-            ]
-        }
-    ]
-};
+import { FiFileText, FiHelpCircle, FiCheckCircle } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const NoteDetailPage = () => {
+    const navigate = useNavigate();
+
+    const [selectedAnswers, setSelectedAnswers] = useState({});
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/");
+    };
+
+    //generált kérdéseket majd hasonlóan kéne lekérni iguess
+    const note = {
+        title: 'II. világháború',
+        summary: 'A II. világháború (1939-1945) az emberiség történetének legpusztítóbb globális konfliktusa volt. A Tengelyhatalmak (élükön Németországgal, Olaszországgal és Japánnal) és a Szövetségesek (élükön Nagy-Britanniával, Franciaországgal, a Szovjetunióval és az Egyesült Államokkal) között zajlott.',
+        quizQuestions: [
+            {
+                question: 'Melyik esemény tekinthető a II. világháború európai kezdetének?',
+                options: ['Lengyelország német inváziója', 'Pearl Harbor', 'D-Day', 'Hitler hatalomra jutása']
+            },
+            {
+                question: 'Melyik ország NEM tartozott a Tengelyhatalmak főbb tagjai közé?',
+                options: ['Szovjetunió', 'Németország', 'Olaszország', 'Japán']
+            },
+            {
+                question: 'Melyik városra dobták le az első atombombát?',
+                options: ['Hirosima', 'Nagaszaki', 'Tokió', 'Berlin']
+            }
+        ]
+    };
+
+    //kiértékelés gomb funkció
+
+    //eredmény %-os kijelzése
+
+    //újabb kérdések generálása?
+
+    const handleSelect = (index, option) => {
+        setSelectedAnswers({ ...selectedAnswers, [index]: option });
+    };
 
     return (
-        <div className="relative min-h-screen bg-gray-50 text-gray-900">
-            <div className="flex flex-col h-screen">
-                <Header />
-                <main className="flex-grow p-6 overflow-auto">
-                    <div className="max-w-3xl mx-auto space-y-8">
+        <div className="min-h-screen bg-gray-50 text-gray-900 font-sans flex flex-col">
+            <Header logout={handleLogout} />
 
-                        {/*summary*/}
-                        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                            <div className="flex items-center space-x-3 mb-4">
-                                <FiFileText className="w-6 h-6 text-orange-600" />
-                                <h2 className="text-2xl font-bold text-gray-800">{studyData.title}</h2>
-                            </div>
-                            <p className="text-gray-700 leading-relaxed">
-                                {studyData.summary}
-                            </p>
+            <main className="flex-grow p-6 overflow-auto">
+                <div className="max-w-3xl mx-auto space-y-8">
+
+                    <div className="bg-white p-8 rounded-2xl border border-gray-200">
+                        <div className="flex items-center space-x-3 mb-4">
+                            <h2 className="text-2xl font-bold text-gray-800">{note.title}</h2>
                         </div>
-
-                        {/*kviz*/}
-                        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                            <div className="flex items-center space-x-3 mb-6">
-                                <FiHelpCircle className="w-6 h-6 text-orange-600" />
-                                <h2 className="text-2xl font-bold text-gray-800">Kvíz</h2>
-                            </div>
-
-                            <form className="space-y-6">
-                                {studyData.quiz.map((item, index) => (
-                                    <div key={item.id} className="border-b border-gray-100 pb-4">
-                                        <h3 className="text-md font-semibold mb-3">{index + 1}. {item.q}</h3>
-                                        <div className="space-y-2">
-                                            {item.a.map((answer, ansIndex) => (
-                                                <label className="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-all cursor-pointer" key={ansIndex}>
-                                                    <input type="radio" name={`question-${item.id}`} value={answer}/>
-                                                    <span className="ml-3 text-sm text-gray-700">{answer}</span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))}
-
-                                <button type="submit" className="w-full mt-6 px-6 py-2 font-semibold text-white bg-orange-600 rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 cursor-pointer">
-                                    Kiértékelés
-                                </button>
-                            </form>
-                        </div>
-
+                        <p className="text-gray-600 leading-relaxed text-lg">
+                            {note.summary}
+                        </p>
                     </div>
-                </main>
-            </div>
+
+                    <div className="bg-white p-8 rounded-2xl border border-gray-200">
+                        <div className="flex items-center space-x-3 mb-8">
+                            <h2 className="text-2xl font-bold text-gray-800">Kvíz</h2>
+                        </div>
+
+                        <div className="space-y-10">
+                            {note.quizQuestions.map((item, index) => (
+                                <div key={index}>
+                                    <h3 className="text-lg font-semibold text-gray-800 mb-4 ml-1">
+                                        <span className="text-orange-500 mr-2">{index + 1}.</span>
+                                        {item.question}
+                                    </h3>
+
+                                    <div className="space-y-3">
+                                        {item.options.map((option, optIndex) => {
+                                            const isSelected = selectedAnswers[index] === option;
+                                            return (
+                                                <div
+                                                    key={optIndex}
+                                                    onClick={() => handleSelect(index, option)}
+                                                    className={`flex items-center p-4 rounded-xl border-2 cursor-pointer transition-colors ${
+                                                        isSelected
+                                                            ? "bg-orange-50 border-orange-500"
+                                                            : "border-transparent bg-gray-50 hover:bg-gray-100 hover:border-gray-200"
+                                                    }`}
+                                                >
+                                                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mr-4 ${
+                                                        isSelected ? "border-orange-500" : "border-gray-300"
+                                                    }`}>
+                                                        {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-orange-500" />}
+                                                    </div>
+                                                    <span className="font-medium text-gray-700">{option}</span>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-10 pt-6 border-t border-gray-100">
+                            <button
+                                className="w-full sm:w-auto px-8 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 cursor-pointer"
+                            >
+                                Kiértékelés
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
         </div>
     );
 };
