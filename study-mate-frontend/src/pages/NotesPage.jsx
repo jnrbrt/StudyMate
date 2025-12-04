@@ -6,27 +6,53 @@ import { Link, useNavigate } from 'react-router-dom';
 const NotesPage = () => {
     const navigate = useNavigate();
     const [notes, setNotes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const handleLogout = () => {
         localStorage.removeItem("token");
         navigate("/");
     };
 
-    const handleDelete = (id) => {
-        //itt majd a törlést hivni kell
-        setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
+    // Jegyzetek betöltése az API-ról
+    useEffect(() => {
+        const fetchNotes = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const res = await fetch("http://localhost:3000/api/notes", {
+                    headers: { "x-auth-token": token }
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.msg || "Hiba a jegyzetek lekérésekor");
+                setNotes(data);
+            } catch (err) {
+                console.error(err);
+                alert(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchNotes();
+    }, []);
+
+    // Jegyzet törlése
+    const handleDelete = async (id) => {
+        if (!window.confirm("Biztosan törlöd a jegyzetet?")) return;
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch(`http://localhost:3000/api/notes/${id}`, {
+                method: "DELETE",
+                headers: { "x-auth-token": token }
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.msg || "Hiba a törlés során");
+            setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
+        } catch (err) {
+            console.error(err);
+            alert(err.message);
+        }
     };
 
-    useEffect(() => {
-
-        // itt majd kell a rendes adatok betöltése
-        const mockNotes = [
-            { _id: '1', title: 'II. világháború', createdAt: '2025-11-16T10:00:00Z' },
-            { _id: '2', title: 'Mesterséges Intelligencia alapjai', createdAt: '2025-11-01T14:30:00Z' },
-            { _id: '3', title: 'JavaScript React Hookok', createdAt: '2025-10-31T09:15:00Z' },
-        ];
-        setNotes(mockNotes);
-    }, []);
+    if (loading) return <p className="p-6 text-gray-600">Jegyzetek betöltése...</p>;
 
     return (
         <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col">
@@ -43,6 +69,7 @@ const NotesPage = () => {
                             {notes.map(note => (
                                 <div key={note._id} className="flex items-center gap-3 group">
 
+                                    {/* Törlés gomb */}
                                     <button
                                         onClick={() => handleDelete(note._id)}
                                         className="p-3 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all border border-transparent hover:border-red-100 flex-shrink-0 cursor-pointer"
@@ -51,6 +78,7 @@ const NotesPage = () => {
                                         <FiTrash2 className="w-5 h-5" />
                                     </button>
 
+                                    {/* Jegyzet link */}
                                     <Link
                                         to={`/notes/${note._id}`}
                                         className="flex-grow bg-white p-4 rounded border border-gray-200 hover:bg-gray-100 transition-colors flex items-center justify-between"
