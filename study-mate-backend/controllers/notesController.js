@@ -64,7 +64,10 @@ exports.deleteNote = async (req, res) => {
         if (!note) return res.status(404).json({ msg: 'Note not found' });
         if (note.userId.toString() !== req.user.id) return res.status(401).json({ msg: 'Not authorized' });
 
-        await note.remove();
+        // Eredeti: await note.remove();
+        // Javított:
+        await Note.findByIdAndDelete(req.params.id);
+
         res.json({ msg: 'Note removed' });
     } catch (err) {
         res.status(500).json({ msg: err.message });
