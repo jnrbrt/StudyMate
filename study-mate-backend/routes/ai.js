@@ -3,13 +3,13 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const aiController = require('../controllers/aiController');
 
-// POST /api/ai/summarize
-router.post('/summarize', auth, aiController.summarizeNote);
+// Egy jegyzet + summary generálása
+router.post('/generate', auth, aiController.generateNoteFromText);
 
-// POST /api/ai/quiz
+// Quiz generálás meglévő jegyzethez
 router.post('/quiz', auth, aiController.generateQuiz);
 
-// GET /api/ai/coach/:userId
+// Coach AI
 router.get('/coach/:userId', auth, aiController.getCoachAdvice);
 
 module.exports = router;
