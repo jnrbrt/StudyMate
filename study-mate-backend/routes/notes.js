@@ -1,21 +1,28 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const auth = require('../middleware/auth');
-const notesController = require('../controllers/notesController');
+const auth = require("../middleware/auth");
 
-// GET /api/notes
-router.get('/', auth, notesController.getNotes);
+const {
+    getNotes,
+    getNoteById,
+    createNote,
+    updateNote,
+    deleteNote
+} = require("../controllers/notesController");
 
-// GET /api/notes/:id
-router.get('/:id', auth, notesController.getNoteById);
+// Összes jegyzet
+router.get("/", auth, getNotes);
 
-// POST /api/notes
-router.post('/', auth, notesController.createNote);
+// Egy jegyzet ID alapján
+router.get("/:id", auth, getNoteById);
 
-// PUT /api/notes/:id
-router.put('/:id', auth, notesController.updateNote);
+// Új jegyzet létrehozása
+router.post("/", auth, createNote);
 
-// DELETE /api/notes/:id
-router.delete('/:id', auth, notesController.deleteNote);
+// Jegyzet frissítése
+router.put("/:id", auth, updateNote);
+
+// Jegyzet törlése
+router.delete("/:id", auth, deleteNote);
 
 module.exports = router;
