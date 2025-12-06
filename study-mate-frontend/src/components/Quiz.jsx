@@ -213,5 +213,4 @@ const Quiz = ({ noteId, questions, onGenerateNew }) => {
         </div>
     );
 };
-
 export default Quiz;
