@@ -19,6 +19,59 @@ const NoteDetailPage = () => {
         navigate("/");
     };
 
+    useEffect(() => {
+        const fetchNoteAndResults = async () => {
+            try {
+                const token = localStorage.getItem("token");
+
+                const noteRes = await fetch(`/api/notes/${id}`, {
+                    headers: { "x-auth-token": token }
+                });
+                const noteData = await noteRes.json();
+                if (!noteRes.ok) throw new Error(noteData.msg || "Hiba a jegyzet lekérésekor");
+
+                setNote(noteData);
+
+                const quizRes = await fetch('/api/quiz/results', {
+                    headers: { "x-auth-token": token }
+                });
+
+                if (quizRes.ok) {
+                    const quizData = await quizRes.json();
+
+                    const myResult = quizData.find(r => r.noteId === id || r.noteId?._id === id);
+
+                    if (myResult) {
+                        setIsSubmitted(true);
+                        setScore(myResult.score);
+                        setShowSummary(true);
+
+                        const restoredAnswers = {};
+
+                        if (myResult.answers && Array.isArray(myResult.answers)) {
+                            myResult.answers.forEach(ans => {
+                                let qIndex = ans.questionId;
+
+                                if (isNaN(qIndex)) {
+                                    const foundIndex = noteData.quizQuestions.findIndex(q => q._id === ans.questionId);
+                                    if (foundIndex !== -1) qIndex = foundIndex;
+                                }
+
+                                restoredAnswers[qIndex] = ans.selectedAnswer;
+                            });
+                        }
+                        setSelectedAnswers(restoredAnswers);
+                    }
+                }
+
+            } catch (err) {
+                console.error(err);
+                alert(err.message);
+            }
+        };
+        fetchNoteAndResults();
+    }, [id]);
+
     const getCorrectText = (question) => {
         const ans = question.correctAnswer ? question.correctAnswer.trim() : "";
 
