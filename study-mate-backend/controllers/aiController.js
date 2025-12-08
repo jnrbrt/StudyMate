@@ -1,10 +1,50 @@
+// controllers/aiController.js
 const Note = require('../models/Note');
-const AiAdvice = require('../models/AiAdvice');
 const fetch = require("node-fetch");
 
-// ---------------------------------------------------------
-// Gemini API hívás - extra fejlődéssel: NEM dől össze JSON error esetén
-// ---------------------------------------------------------
+/* ---------------------------------------------------------
+   1) INPUT CLEANING – megbízhatóbb, nem tör túl sokat
+--------------------------------------------------------- */
+function cleanInputText(text) {
+    if (!text) return "";
+
+    return text
+        .replace(/\u0000/g, "")           // null byte
+        .replace(/<[^>]*>/g, "")          // HTML tagek
+        .replace(/\s{2,}/g, " ")          // több space -> 1 space
+        .trim();
+}
+
+/* ---------------------------------------------------------
+   2) SZUPER BIZTOS JSON PARSER (nem tördel széjjel JSON-t)
+--------------------------------------------------------- */
+function parseJSONSafe(raw) {
+    if (!raw) return null;
+
+    // Ha elsőre jó → vissza
+    try {
+        return JSON.parse(raw);
+    } catch (_) {}
+
+    // Kinyerjük a legnagyobb JSON blokkot
+    const match = raw.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
+    if (!match) return null;
+
+    const jsonCandidate = match[1]
+        .replace(/,\s*([}\]])/g, "$1"); // trailing comma fix
+
+    try {
+        return JSON.parse(jsonCandidate);
+    } catch (e) {
+        console.error("parseJSONSafe ERROR:", e);
+        console.error("Candidate:", jsonCandidate);
+        return null;
+    }
+}
+
+/* ---------------------------------------------------------
+   3) GEMINI HÍVÁS – csak sima textet kapunk
+--------------------------------------------------------- */
 async function callGemini(prompt) {
     const apiKey = process.env.GEMINI_API_KEY;
 
@@ -25,185 +65,136 @@ async function callGemini(prompt) {
     const raw = await response.text();
     console.log("Gemini RAW:", raw);
 
-    let data;
+    let parsed;
     try {
-        data = JSON.parse(raw);
-    } catch (e) {
-        console.error("Gemini JSON parse error:", e);
-        return null;
+        parsed = JSON.parse(raw);
+    } catch {
+        return raw;
     }
 
-    if (!data?.candidates?.length) {
-        console.error("Gemini empty candidates:", data);
-        return null;
-    }
+    const parts = parsed?.candidates?.[0]?.content?.parts;
+    if (!parts) return raw;
 
-    return data.candidates[0].content.parts[0].text;
+    let text = parts.map(p => p.text || "").join("");
+
+    // Markdown eltávolítás
+    return text.replace(/```json|```/g, "").trim();
 }
 
-// ---------------------------------------------------------
-// 1) Új jegyzet generálása szövegből (cím + summary egy hívásban)
-// ---------------------------------------------------------
+/* ---------------------------------------------------------
+   4) RETRY – minden körben teljes JSON kinyerést próbál
+--------------------------------------------------------- */
+async function callGeminiWithRetry(prompt, retries = 3) {
+    for (let i = 0; i < retries; i++) {
+        const raw = await callGemini(prompt);
+        const json = parseJSONSafe(raw);
+
+        if (json) return json;
+    }
+    return null;
+}
+
+/* ---------------------------------------------------------
+   5) SUMMARY GENERÁLÁS – stabil szószám, nem vágja rövidre
+--------------------------------------------------------- */
 exports.generateNoteFromText = async (req, res) => {
     try {
         const { content, summaryLength } = req.body;
-        if (!content) {
-            return res.status(400).json({ msg: "Nincs szöveg megadva" });
-        }
+        if (!content) return res.status(400).json({ msg: "Nincs szöveg" });
 
-        const wordCount = content.split(/\s+/).length;
+        const cleaned = cleanInputText(content);
+        const wordCount = cleaned.split(/\s+/).length;
 
-        let percent;
-        switch(summaryLength) {
-            case "short":
-                percent = 15;
-                break;
-            case "medium":
-                percent = 35;
-                break;
-            case "long":
-                percent = 70;
-                break;
-        }
+        let percent =
+            summaryLength === "short" ? 25 :
+                summaryLength === "medium" ? 45 :
+                    summaryLength === "long" ? 70 : 40;
 
-        const targetWords = Math.max(1, Math.floor(wordCount * (percent / 100)));
+        const targetWords = Math.max(120, Math.floor(wordCount * percent / 100));
+        const minWords = Math.floor(targetWords * 0.85);
+        const maxWords = Math.floor(targetWords * 1.15);
 
         const prompt = `
-Kérlek készíts a következő szövegből egy jegyzetet JSON formátumban:
+Adj vissza kizárólag érvényes JSON-t:
+
 {
-  "title": "Rövid cím 4-10 szóban, ami összefoglalja a téma lényegét",
-  "summary": "Rövid összefoglaló"
+  "title": "4-10 szavas cím",
+  "summary": "összefoglaló"
 }
 
-Az összefoglaló legyen kb. ${targetWords} szóból, tartalmazza a főbb pontokat, de ne ismételd szó szerint a szöveget.
+KÖTELEZŐ SZABÁLYOK:
+- A summary legalább ${minWords} szó
+- De nem lehet hosszabb mint ${maxWords} szó
+- Ha eléred a maximumot, fejezd be a mondatot
+- Ne ismételj!
+- Ne írj semmi extrát a JSON elé vagy mögé!
 
-Szöveg:
-${content}
-
-**FONTOS:**  
-- Csak a JSON-t add vissza, semmi mást.
-- Ne tegyél oda magyarázatot vagy bevezetőt.
+SZÖVEG:
+${cleaned}
 `;
 
-        // AI hívás
-        let aiResponse = await callGemini(prompt);
-        if (!aiResponse) {
-            return res.status(500).json({ msg: "Nem sikerült értelmezhető jegyzetet generálni." });
-        }
+        const data = await callGeminiWithRetry(prompt);
 
-        aiResponse = aiResponse.replace(/```json|```/g, "").trim();
-
-        let data;
-        try {
-            data = JSON.parse(aiResponse);
-        } catch (e) {
-            console.error("AI JSON parse error:", e, aiResponse);
-            return res.status(500).json({ msg: "Nem sikerült értelmezhető jegyzetet generálni." });
+        if (!data || typeof data !== "object") {
+            return res.status(500).json({ msg: "AI hibás JSON-t adott vissza." });
         }
 
         const note = new Note({
             userId: req.user.id,
             title: data.title || "Névtelen jegyzet",
-            content,
+            content: cleaned,
             summary: data.summary || ""
         });
 
         await note.save();
+        res.json(note);
 
-        return res.json(note);
     } catch (err) {
-        console.error("Gemini generateNote error:", err);
-        return res.status(500).json({ msg: "Server error" });
+        console.error("generateNoteFromText ERROR:", err);
+        res.status(500).json({ msg: "Server error" });
     }
 };
 
-// ---------------------------------------------------------
-// 2) Kvízkérdések generálása meglévő jegyzethez
-// ---------------------------------------------------------
+/* ---------------------------------------------------------
+   6) KVÍZ GENERÁLÁS – stabilizált kérdésszám, robusztus JSON
+--------------------------------------------------------- */
 exports.generateQuiz = async (req, res) => {
     try {
         const note = await Note.findById(req.body.noteId);
-        if (!note) return res.status(404).json({ msg: 'Note not found' });
+        if (!note) return res.status(404).json({ msg: "Note not found" });
 
-        const questionCount = req.body.questionCount || 3;
+        const summary = cleanInputText(note.summary);
+        const questionCount = 30;
 
         const prompt = `
-Kérlek készíts ${questionCount} kvízkérdést az alábbi jegyzetből.  
-A kimenet legyen **érvényes JSON**, minden kérdésnek legyen 4 válasza (A, B, C, D) és a helyes válasz is szerepeljen:
+Adj vissza kizárólag JSON listát:
 
 [
-  {
-    "question": "Itt jön a kérdés szövege",
-    "options": ["A válasz", "B válasz", "C válasz", "D válasz"],
-    "correctAnswer": "A" // vagy B, C, D
-  }
+  { "question": "?", "options": ["A","B","C","D"], "correctAnswer": "A" }
 ]
 
-Jegyzet tartalma:
-${note.content}
+SZABÁLYOK:
+- Pontosan ${questionCount} kérdés
+- Csak a SUMMARY-ből dolgozhatsz
+- Nincs extra szöveg vagy komment
 
-**FONTOS:**  
-- Csak a JSON-t add vissza, semmi más.
+SUMMARY:
+${summary}
 `;
 
-        let aiResponse = await callGemini(prompt);
-        if (!aiResponse) return res.status(500).json({ msg: 'Nem sikerült kvízt generálni.' });
+        const data = await callGeminiWithRetry(prompt);
 
-        aiResponse = aiResponse.replace(/```json|```/g, "").trim();
-
-        let quizQuestions;
-        try {
-            quizQuestions = JSON.parse(aiResponse);
-        } catch (e) {
-            console.error("Quiz JSON parse error:", e, aiResponse);
-            return res.status(500).json({ msg: 'Nem sikerült kvízt generálni.' });
+        if (!Array.isArray(data) || data.length !== questionCount) {
+            return res.status(500).json({ msg: "AI hibás kérdéssort adott vissza." });
         }
 
-        note.quizQuestions = quizQuestions;
+        note.quizQuestions = data;
         await note.save();
 
-        res.json({ quizQuestions });
+        res.json({ quizQuestions: data });
+
     } catch (err) {
-        console.error("Gemini quiz error:", err);
-        res.status(500).json({ msg: 'Server error' });
-    }
-};
-
-// ---------------------------------------------------------
-// 3) Study Coach tanács
-// ---------------------------------------------------------
-exports.getCoachAdvice = async (req, res) => {
-    try {
-        const userId = req.params.userId;
-
-        const results = await Note.find({ userId });
-
-        const resultsText = results
-            .map(r => `- ${r.title}: ${r.quizQuestions?.length || 0} kérdés`)
-            .join("\n");
-
-        const prompt = `
-A felhasználó eddigi kvíz eredményei:
-${resultsText}
-
-Adj:
-1) Személyre szabott tanulási javaslatot
-2) 2 gyakorló kérdést a leggyengébb témából.
-`;
-
-        const adviceText = await callGemini(prompt);
-        if (!adviceText) return res.status(500).json({ msg: "Nem sikerült tanácsot generálni." });
-
-        const advice = new AiAdvice({
-            userId,
-            adviceText
-        });
-
-        await advice.save();
-
-        res.json({ advice: adviceText });
-    } catch (err) {
-        console.error("Gemini coach error:", err);
-        res.status(500).json({ msg: 'Server error' });
+        console.error("generateQuiz ERROR:", err);
+        res.status(500).json({ msg: "Server error" });
     }
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Quiz from '../components/Quiz';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
 const NoteDetailPage = () => {
     const navigate = useNavigate();
@@ -9,6 +9,9 @@ const NoteDetailPage = () => {
 
     const [note, setNote] = useState(null);
     const [showSummary, setShowSummary] = useState(true);
+
+    const location = useLocation();
+    const questionCount = location.state?.questionCount || 5;
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -36,9 +39,39 @@ const NoteDetailPage = () => {
     }, [id]);
 
 
-    const handleGenerateNewQuestions = () => {
-        //uj kerdesek generalasa
-    };
+    const handleGenerateNewQuestions = async () => {
+    try {
+        const token = localStorage.getItem("token");
+
+        const res = await fetch("/api/ai/quiz", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-auth-token": token
+            },
+            body: JSON.stringify({
+                noteId: note._id,
+                questionCount: 3 // vagy később felhasználó által választható
+            })
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+            alert(data.msg || "Nem sikerült új kérdéseket generálni.");
+            return;
+        }
+
+        // Új kérdések hozzácsatolása a meglévőhöz
+        setNote(prev => ({
+            ...prev,
+            quizQuestions: [...prev.quizQuestions, ...data.quizQuestions]
+        }));
+
+    } catch (err) {
+        console.error("Hiba új kérdések generálásakor:", err);
+        alert("Server error");
+    }
+};
 
     if (!note) return <p className="p-6 text-center text-gray-500">Betöltés...</p>;
 
@@ -72,6 +105,7 @@ const NoteDetailPage = () => {
                         <Quiz
                             noteId={note._id}
                             questions={note.quizQuestions}
+                            initialCount={questionCount}
                             onGenerateNew={handleGenerateNewQuestions}
                         />
                     )}

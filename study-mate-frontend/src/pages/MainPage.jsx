@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
-import { FiUpload, FiPlus } from 'react-icons/fi';
+import { FiPlus } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
@@ -19,7 +19,13 @@ const MainPage = () => {
 
     const handleGenerate = async () => {
         if (!topic.trim()) {
-            alert("Kérlek adj meg egy témát!");
+            alert("Kérlek adj meg egy témát vagy szöveget!");
+            return;
+        }
+
+        const wordCount = topic.trim().split(/\s+/).length;
+        if (wordCount < 50) {
+            alert("A megadott szöveg túl rövid. Kérlek adj meg legalább 50 szót!");
             return;
         }
 
@@ -51,8 +57,7 @@ const MainPage = () => {
                         "x-auth-token": token
                     },
                     body: JSON.stringify({
-                        noteId: newNote._id,
-                        questionCount
+                        noteId: newNote._id
                     })
                 });
 
@@ -62,7 +67,9 @@ const MainPage = () => {
                 }
             }
 
-            navigate(`/notes/${newNote._id}`);
+            navigate(`/notes/${newNote._id}`, {
+                state: { questionCount }
+            });
 
         } catch (err) {
             console.error(err);
@@ -77,9 +84,9 @@ const MainPage = () => {
             <Header logout={handleLogout} />
 
             {loading && (
-                <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center transition-all">
+                <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center">
                     <div className="w-16 h-16 border-4 border-orange-200 border-t-orange-600 rounded-full animate-spin mb-6"></div>
-                    <h2 className="text-2xl font-bold text-gray-800">StudyMate jegyzet generálása folyamatban...</h2>
+                    <h2 className="text-2xl font-bold text-gray-800">StudyMate jegyzet generálása...</h2>
                     <p className="text-sm mt-1">Ez eltarthat pár másodpercig.</p>
                 </div>
             )}
@@ -92,26 +99,19 @@ const MainPage = () => {
                     </div>
 
                     <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-                        <div className="mb-4">
+
+                        <div className="mb-6">
                             <label className="block text-sm font-bold text-gray-700 mb-2">Téma vagy szöveg</label>
                             <textarea
-                                rows="3"
+                                rows="10"
                                 value={topic}
                                 onChange={(e) => setTopic(e.target.value)}
-                                placeholder="Miről szeretnél tanulni? Írd le, vagy másolj be egy szövegrészletet..."
-                                className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-orange-500 resize-none transition-colors"
+                                placeholder="Másold be a szöveget, amiből jegyzetet szeretnél..."
+                                className="w-full p-3 border border-gray-300 rounded h-56 resize-none focus:outline-none focus:border-orange-500 transition-colors"
                             ></textarea>
                         </div>
 
-                        <div className="mb-6">
-                            <label className="flex items-center justify-center w-full h-16 border-2 border-dashed border-gray-300 rounded cursor-pointer hover:bg-orange-50 hover:border-orange-300 transition-all">
-                                <div className="flex items-center space-x-2 text-gray-500">
-                                    <FiUpload />
-                                    <span>PDF feltöltése (Hamarosan)</span>
-                                </div>
-                                <input type="file" className="hidden" disabled />
-                            </label>
-                        </div>
+                        {/* PDF feltöltés — ELTÁVOLÍTVA */}
 
                         <div className="flex items-center justify-between border-t border-gray-100 pt-4">
                             <div className="flex items-center gap-4">
@@ -128,7 +128,7 @@ const MainPage = () => {
                                 <select
                                     value={summaryLength}
                                     onChange={(e) => setSummaryLength(e.target.value)}
-                                    className="border border-gray-300 text-gray-700 text-sm rounded p-1.5 focus:outline-none focus:border-orange-500 cursor-pointer bg-white"
+                                    className="border border-gray-300 text-gray-700 text-sm rounded p-1.5 bg-white cursor-pointer focus:outline-none focus:border-orange-500"
                                 >
                                     <option value="short">Rövid</option>
                                     <option value="medium">Közepes</option>
@@ -139,7 +139,7 @@ const MainPage = () => {
                                     <select
                                         value={questionCount}
                                         onChange={(e) => setQuestionCount(e.target.value)}
-                                        className="border border-gray-300 text-gray-700 text-sm rounded p-1.5 focus:outline-none focus:border-orange-500 cursor-pointer bg-white"
+                                        className="border border-gray-300 text-gray-700 text-sm rounded p-1.5 bg-white cursor-pointer focus:outline-none focus:border-orange-500"
                                     >
                                         <option value="3">3 kérdés</option>
                                         <option value="5">5 kérdés</option>
@@ -151,7 +151,7 @@ const MainPage = () => {
                             <button
                                 onClick={handleGenerate}
                                 disabled={loading}
-                                className="flex items-center px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded cursor-pointer disabled:opacity-50 transition-colors shadow-sm hover:shadow-md"
+                                className="flex items-center px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded shadow-sm hover:shadow-md transition-colors disabled:opacity-50"
                             >
                                 <FiPlus className="mr-2" /> Jegyzet generálása
                             </button>
